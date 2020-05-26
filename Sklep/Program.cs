@@ -25,7 +25,7 @@ namespace Sklep
                 try
                 {
                     var context = services.GetRequiredService<SklepContext>();
-                    context.Database.EnsureCreated();
+                    DBInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {

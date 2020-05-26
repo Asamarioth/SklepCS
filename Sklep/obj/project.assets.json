@@ -8949,19 +8949,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Quinn\\.nuget\\packages\\": {}
+    "C:\\Users\\Sol\\.nuget\\packages\\": {},
+    "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\C#\\Projekty\\Sklep\\Sklep\\Sklep.csproj",
+      "projectUniqueName": "G:\\C#\\SklepCS\\Sklep\\Sklep.csproj",
       "projectName": "Sklep",
-      "projectPath": "D:\\C#\\Projekty\\Sklep\\Sklep\\Sklep.csproj",
-      "packagesPath": "C:\\Users\\Quinn\\.nuget\\packages\\",
-      "outputPath": "D:\\C#\\Projekty\\Sklep\\Sklep\\obj\\",
+      "projectPath": "G:\\C#\\SklepCS\\Sklep\\Sklep.csproj",
+      "packagesPath": "C:\\Users\\Sol\\.nuget\\packages\\",
+      "outputPath": "G:\\C#\\SklepCS\\Sklep\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Quinn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sol\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9022,6 +9026,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.2, 3.1.2]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9030,7 +9040,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
