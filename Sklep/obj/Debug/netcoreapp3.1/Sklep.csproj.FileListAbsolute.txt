@@ -873,3 +873,4 @@ G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\staticwebassets\Sklep.StaticWebAsset
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.dll
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.pdb
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.genruntimeconfig.cache
+G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Razor\Pages\About.cshtml.g.cs

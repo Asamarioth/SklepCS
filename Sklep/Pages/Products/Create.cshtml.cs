@@ -31,15 +31,19 @@ namespace Sklep.Pages.Products
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+
+            var emptyProdukt = new Produkty();
+
+            if (await TryUpdateModelAsync<Produkty>(
+         emptyProdukt,
+         "produkty",   // Prefix for form value.
+         p => p.Id_kategorii, p => p.Id_producenta, p => p.Nazwa, p => p.Cena_netto, p => p.VAT, p => p.Cena_brutto, p => p.Opis, p => p.Id_obrazek))
             {
-                return Page();
+                _context.Produkty.Add(emptyProdukt);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-
-            _context.Produkty.Add(Produkty);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

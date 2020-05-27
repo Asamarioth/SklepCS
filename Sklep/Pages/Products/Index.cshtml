@@ -10,6 +10,16 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -20,7 +30,9 @@
                 @Html.DisplayNameFor(model => model.Produkty[0].Id_producenta)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Produkty[0].Nazwa)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Produkty[0].Nazwa)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Produkty[0].Cena_netto)
@@ -29,7 +41,9 @@
                 @Html.DisplayNameFor(model => model.Produkty[0].VAT)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Produkty[0].Cena_brutto)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.PriceSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Produkty[0].Cena_brutto)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Produkty[0].Opis)
@@ -41,38 +55,59 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Produkty) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_kategorii)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_producenta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nazwa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cena_netto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VAT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cena_brutto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Opis)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id_obrazek)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Produkty)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_kategorii)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_producenta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nazwa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cena_netto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VAT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cena_brutto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_obrazek)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.Produkty.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Produkty.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Produkty.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Produkty.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

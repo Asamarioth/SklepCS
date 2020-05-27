@@ -19,11 +19,57 @@ namespace Sklep.Pages.Products
             _context = context;
         }
 
-        public IList<Produkty> Produkty { get;set; }
+        public string NameSort { get; set; }
+        public string PriceSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-        public async Task OnGetAsync()
+        public PaginatedList<Produkty> Produkty { get;set; }
+
+        public async Task OnGetAsync(string sortOrder, string searchString, string currentFilter, int? pageIndex)
         {
-            Produkty = await _context.Produkty.ToListAsync();
+            CurrentSort = sortOrder;
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            PriceSort = sortOrder == "Price" ? "price_desc" : "Price";
+
+            CurrentFilter = searchString;
+
+            IQueryable<Produkty> produktyIQ= from p in _context.Produkty
+                                             select p;
+
+            if(searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                produktyIQ = produktyIQ.Where(p => p.Nazwa.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    produktyIQ = produktyIQ.OrderByDescending(p => p.Nazwa);
+                    break;
+                case "Price":
+                    produktyIQ = produktyIQ.OrderBy(p => p.Cena_brutto);
+                    break;
+                case "price_desc":
+                    produktyIQ = produktyIQ.OrderByDescending(p => p.Cena_brutto);
+                    break;
+                default:
+                    produktyIQ = produktyIQ.OrderBy(p => p.Nazwa);
+                    break;
+            }
+            int pageSize = 10;
+            Produkty = await PaginatedList<Produkty>.CreateAsync(
+                produktyIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }

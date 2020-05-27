@@ -9,7 +9,9 @@ namespace Sklep.Models
     public partial class Produkty
     {
         public int ID { get; set; }
+        [ForeignKey("Kategorie")]
         public int Id_kategorii { get; set; }
+        [ForeignKey("Producenci")]
         public int Id_producenta { get; set; }
         public string Nazwa { get; set; }
         [Column(TypeName = "decimal(6,2)")]

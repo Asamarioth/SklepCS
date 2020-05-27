@@ -21,19 +21,26 @@ namespace Sklep.Pages.Products
 
         [BindProperty]
         public Produkty Produkty { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Produkty = await _context.Produkty.FirstOrDefaultAsync(m => m.ID == id);
+            Produkty = await _context.Produkty
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Produkty == null)
             {
                 return NotFound();
+            }
+            if(saveChangesError.GetValueOrDefault())
+            {
+                ErrorMessage = "Usuwanie się nie powiodło";
             }
             return Page();
         }
@@ -45,15 +52,25 @@ namespace Sklep.Pages.Products
                 return NotFound();
             }
 
-            Produkty = await _context.Produkty.FindAsync(id);
+            var produkt = await _context.Produkty.FindAsync(id);
 
-            if (Produkty != null)
+            if (produkt == null)
             {
-                _context.Produkty.Remove(Produkty);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Produkty.Remove(produkt);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch(DbUpdateException)
+            {
+                return RedirectToAction("./Delete",
+                    new { id, saveChangesError = true });
+            }
+           
         }
     }
 }

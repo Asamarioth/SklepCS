@@ -30,7 +30,7 @@ namespace Sklep.Pages.Products
                 return NotFound();
             }
 
-            Produkty = await _context.Produkty.FirstOrDefaultAsync(m => m.ID == id);
+            Produkty = await _context.Produkty.FindAsync(id);
 
             if (Produkty == null)
             {
@@ -41,32 +41,24 @@ namespace Sklep.Pages.Products
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (!ModelState.IsValid)
+            var produktToUpdate = await _context.Produkty.FindAsync(id);
+
+            if(produktToUpdate == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Produkty).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Produkty>(
+         produktToUpdate,
+         "produkty",   // Prefix for form value.
+         p => p.Id_kategorii, p => p.Id_producenta, p => p.Nazwa, p => p.Cena_netto, p => p.VAT, p => p.Cena_brutto, p => p.Opis, p => p.Id_obrazek))
             {
                 await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProduktyExists(Produkty.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
+            return Page();
         }
 
         private bool ProduktyExists(int id)

@@ -1,0 +1,30 @@
+﻿@page
+@model Sklep.Pages.AboutModel
+@{
+    ViewData["Title"] = "About";
+}
+
+<h1>About</h1>
+<table>
+    <tr>
+        <th>
+            Kategoria
+        </th>
+        <th>
+            Produkty
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Produkty)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwa)
+            </td>
+            <td>
+                @item.ProduktyCount
+            </td>
+        </tr>
+    }
+</table>
+

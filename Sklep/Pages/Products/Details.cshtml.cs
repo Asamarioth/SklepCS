@@ -28,7 +28,11 @@ namespace Sklep.Pages.Products
                 return NotFound();
             }
 
-            Produkty = await _context.Produkty.FirstOrDefaultAsync(m => m.ID == id);
+            Produkty = await _context.Produkty
+                .Include(k => k.Kategorie)
+                .Include(p => p.Producenci)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Produkty == null)
             {
