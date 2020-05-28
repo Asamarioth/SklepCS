@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Sklep</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/mdb.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -89,8 +91,8 @@
         <!-- Navbar -->
     </header>
     <!-- Navigation -->
-    <div class="container">
-        <main role="main" class="my-5 pb-5">
+    <div class="container mt-5">
+        <main role="main" >
             @RenderBody()
         </main>
     </div>

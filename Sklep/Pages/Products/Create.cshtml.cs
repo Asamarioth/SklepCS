@@ -37,7 +37,7 @@ namespace Sklep.Pages.Products
             if (await TryUpdateModelAsync<Produkty>(
          emptyProdukt,
          "produkty",   // Prefix for form value.
-         p => p.Id_kategorii, p => p.Id_producenta, p => p.Nazwa, p => p.Cena_netto, p => p.VAT, p => p.Cena_brutto, p => p.Opis, p => p.Id_obrazek))
+         p => p.Id_kategorii, p => p.Id_producenta, p => p.Nazwa, p => p.Cena_netto, p => p.VAT, p => p.Cena_brutto, p => p.Opis, p => p.Obrazek))
             {
                 _context.Produkty.Add(emptyProdukt);
                 await _context.SaveChangesAsync();

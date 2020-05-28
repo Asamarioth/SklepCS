@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Sklep.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Sklep.Data;
-using Sklep.Models;
 
 namespace Sklep.Pages.Products
 {
@@ -24,7 +21,7 @@ namespace Sklep.Pages.Products
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public PaginatedList<Produkty> Produkty { get;set; }
+        public PaginatedList<Produkty> Produkty { get; set; }
 
         public async Task OnGetAsync(string sortOrder, string searchString, string currentFilter, int? pageIndex)
         {
@@ -34,10 +31,12 @@ namespace Sklep.Pages.Products
 
             CurrentFilter = searchString;
 
-            IQueryable<Produkty> produktyIQ= from p in _context.Produkty
-                                             select p;
+            IQueryable<Produkty> produktyIQ = from p in _context.Produkty
+                                              .Include(k => k.Kategorie)
+                                              .Include(p => p.Producenci)
+                                              select p;
 
-            if(searchString != null)
+            if (searchString != null)
             {
                 pageIndex = 1;
             }
@@ -46,8 +45,7 @@ namespace Sklep.Pages.Products
                 searchString = currentFilter;
             }
 
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 produktyIQ = produktyIQ.Where(p => p.Nazwa.Contains(searchString));
             }
@@ -57,12 +55,15 @@ namespace Sklep.Pages.Products
                 case "name_desc":
                     produktyIQ = produktyIQ.OrderByDescending(p => p.Nazwa);
                     break;
+
                 case "Price":
                     produktyIQ = produktyIQ.OrderBy(p => p.Cena_brutto);
                     break;
+
                 case "price_desc":
                     produktyIQ = produktyIQ.OrderByDescending(p => p.Cena_brutto);
                     break;
+
                 default:
                     produktyIQ = produktyIQ.OrderBy(p => p.Nazwa);
                     break;
