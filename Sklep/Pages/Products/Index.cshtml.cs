@@ -4,7 +4,7 @@ using Sklep.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Collections.Generic;
 namespace Sklep.Pages.Products
 {
     public class IndexModel : PageModel
@@ -16,61 +16,26 @@ namespace Sklep.Pages.Products
             _context = context;
         }
 
-        public string NameSort { get; set; }
-        public string PriceSort { get; set; }
-        public string CurrentFilter { get; set; }
-        public string CurrentSort { get; set; }
+        public int CurrentProduct { get; set; }
 
-        public PaginatedList<Produkty> Produkty { get; set; }
+        public IList<Produkty> Produkty { get; set; }
 
-        public async Task OnGetAsync(string sortOrder, string searchString, string currentFilter, int? pageIndex)
+        public async Task OnGetAsync(string productID)
         {
-            CurrentSort = sortOrder;
-            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            PriceSort = sortOrder == "Price" ? "price_desc" : "Price";
+            
+            CurrentProduct = String.IsNullOrEmpty(productID) ? 1: Int32.Parse(productID);
 
-            CurrentFilter = searchString;
+
 
             IQueryable<Produkty> produktyIQ = from p in _context.Produkty
                                               .Include(k => k.Kategorie)
                                               .Include(p => p.Producenci)
                                               select p;
 
-            if (searchString != null)
-            {
-                pageIndex = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+            produktyIQ = produktyIQ.Where(p => p.ID.Equals(CurrentProduct));
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                produktyIQ = produktyIQ.Where(p => p.Nazwa.Contains(searchString));
-            }
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    produktyIQ = produktyIQ.OrderByDescending(p => p.Nazwa);
-                    break;
-
-                case "Price":
-                    produktyIQ = produktyIQ.OrderBy(p => p.Cena_brutto);
-                    break;
-
-                case "price_desc":
-                    produktyIQ = produktyIQ.OrderByDescending(p => p.Cena_brutto);
-                    break;
-
-                default:
-                    produktyIQ = produktyIQ.OrderBy(p => p.Nazwa);
-                    break;
-            }
-            int pageSize = 10;
-            Produkty = await PaginatedList<Produkty>.CreateAsync(
-                produktyIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+            Produkty = await produktyIQ.ToListAsync();
+            
         }
     }
 }

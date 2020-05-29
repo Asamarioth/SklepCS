@@ -7,7 +7,7 @@ using Sklep.Models.SklepViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
+using System;
 
 namespace Sklep.Pages
 {
@@ -21,10 +21,12 @@ namespace Sklep.Pages
         }
 
 
-
-        public IList<KategorieProdukty> Produkty { get; set; }
+        public IList<KategorieProdukty> KatProd { get; set; }
+        public IList<Produkty> Produkty { get; set; }
+        public List<int> RandomList { get; set; }
         public async Task OnGetAsync()
         {
+
             IQueryable<KategorieProdukty> data =
                 from produkty in _context.Produkty
                 group produkty by produkty.Id_kategorii into kategoriaGroup
@@ -36,7 +38,20 @@ namespace Sklep.Pages
                              where (Kategorie.ID == kategoriaGroup.Key)
                              select Kategorie.Nazwa).Single()
                 };
-            Produkty = await data.AsNoTracking().ToListAsync();
+            KatProd = await data.AsNoTracking().ToListAsync();
+            Produkty = await _context.Produkty.ToListAsync();
+
+            Random a = new Random();
+            RandomList = new List<int>();
+            int temp = 0;
+            while (RandomList.Count<10)
+            {
+                temp = a.Next(1, Produkty.Count - 1);
+                if (!RandomList.Contains(temp))
+                {
+                    RandomList.Add(temp);
+                }
+            }
         }
     }
 }
