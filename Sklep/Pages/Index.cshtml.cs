@@ -39,7 +39,7 @@ namespace Sklep.Pages
                              select Kategorie.Nazwa).Single()
                 };
             KatProd = await data.AsNoTracking().ToListAsync();
-            Produkty = await _context.Produkty.ToListAsync();
+            Produkty = await _context.Produkty.AsNoTracking().ToListAsync();
 
             Random a = new Random();
             RandomList = new List<int>();

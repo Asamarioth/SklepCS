@@ -30,6 +30,7 @@ namespace Sklep
 
             services.AddDbContext<SklepContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SklepContext")));
+            services.AddSession();
 
         }
 
@@ -39,7 +40,8 @@ namespace Sklep
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+                app.UseBrowserLink();
+
             }
             else
             {
@@ -47,7 +49,7 @@ namespace Sklep
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseBrowserLink();
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -55,10 +57,14 @@ namespace Sklep
 
             app.UseAuthorization();
 
+            app.UseSession();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
             });
+
+            
         }
     }
 }

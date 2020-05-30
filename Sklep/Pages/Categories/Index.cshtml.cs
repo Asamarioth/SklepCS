@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace Sklep.Pages.Categories
 {
@@ -17,23 +16,21 @@ namespace Sklep.Pages.Categories
         {
             _context = context;
         }
-
         public int CurrentCategory { get; set; }
         public string PriceSort { get; set; }
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
         public string ErrorMessage { get; set; }
-
+       
         public IList<Kategorie> Kategorie { get; set; }
         public PaginatedList<Produkty> Produkty { get; set; }
-        public async Task OnGetAsync(string sortOrder, string searchString, string currentFilter, int? pageIndex, string currentCategory = "0")
+        public async Task OnGetAsync(string sortOrder, string searchString, string currentFilter, int? pageIndex, int currentCategory = 0)
         {
             CurrentSort = sortOrder;
-            CurrentCategory = Int32.Parse(currentCategory);
+            CurrentCategory = currentCategory;
             PriceSort = sortOrder == "Price" ? "price_desc" : "Price";
             
             CurrentFilter = searchString;
-
 
             IQueryable<Produkty> produktyIQ = from p in _context.Produkty
                                               .Include(ka => ka.Kategorie)
@@ -50,11 +47,11 @@ namespace Sklep.Pages.Categories
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                if (Int32.Parse(currentCategory)!= 0)
+                if (currentCategory!= 0)
                 {
                     produktyIQ = produktyIQ
                         .Where(p => p.Nazwa.Contains(searchString))
-                        .Where(p => p.Kategorie.ID.Equals(Int32.Parse(currentCategory)));
+                        .Where(p => p.Kategorie.ID.Equals(currentCategory));
                 }
                 else
                 {  
@@ -65,10 +62,10 @@ namespace Sklep.Pages.Categories
             }
             else
             {
-                if (Int32.Parse(currentCategory) != 0)
+                if (currentCategory != 0)
                 {
                     produktyIQ = produktyIQ                      
-                        .Where(p => p.Kategorie.ID.Equals(Int32.Parse(currentCategory)));
+                        .Where(p => p.Kategorie.ID.Equals(currentCategory));
                 }
 
             }
