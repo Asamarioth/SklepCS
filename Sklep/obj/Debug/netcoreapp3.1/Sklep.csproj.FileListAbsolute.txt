@@ -843,9 +843,6 @@ G:\C#\SklepCS\Sklep\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\Syst
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.csprojAssemblyReference.cache
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.AssemblyInfoInputs.cache
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.AssemblyInfo.cs
-G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.csproj.CoreCompileInputs.cache
-G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.MvcApplicationPartsAssemblyInfo.cs
-G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.MvcApplicationPartsAssemblyInfo.cache
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.RazorAssemblyInfo.cache
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.RazorAssemblyInfo.cs
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.TagHelpers.input.cache
@@ -876,3 +873,6 @@ G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.genruntimeconfig.cache
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Razor\Pages\About.cshtml.g.cs
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Razor\Pages\Categories\Index.cshtml.g.cs
 G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Razor\Pages\Cart\Index.cshtml.g.cs
+G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.csproj.CoreCompileInputs.cache
+G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.MvcApplicationPartsAssemblyInfo.cs
+G:\C#\SklepCS\Sklep\obj\Debug\netcoreapp3.1\Sklep.MvcApplicationPartsAssemblyInfo.cache

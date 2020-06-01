@@ -23,6 +23,8 @@ namespace Sklep.Pages
 
         public IList<KategorieProdukty> KatProd { get; set; }
         public IList<Produkty> Produkty { get; set; }
+        public IList<Kategorie> Kategorie { get; set; }
+
         public List<int> RandomList { get; set; }
         public async Task OnGetAsync()
         {
@@ -40,7 +42,7 @@ namespace Sklep.Pages
                 };
             KatProd = await data.AsNoTracking().ToListAsync();
             Produkty = await _context.Produkty.AsNoTracking().ToListAsync();
-
+            Kategorie = await _context.Kategorie.ToListAsync();
             Random a = new Random();
             RandomList = new List<int>();
             int temp = 0;
@@ -52,6 +54,7 @@ namespace Sklep.Pages
                     RandomList.Add(temp);
                 }
             }
+            
         }
     }
 }

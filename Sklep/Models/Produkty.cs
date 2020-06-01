@@ -17,7 +17,6 @@ namespace Sklep.Models
         [Required]
         public int Id_producenta { get; set; }
         [Required]
-        [StringLength(50)]
         public string Nazwa { get; set; }
         [Column(TypeName = "decimal(6,2)")]
         [Display(Name = "Cena netto")]

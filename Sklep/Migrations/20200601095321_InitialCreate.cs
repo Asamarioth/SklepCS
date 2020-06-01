@@ -40,12 +40,12 @@ namespace Sklep.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Id_kategorii = table.Column<int>(nullable: false),
                     Id_producenta = table.Column<int>(nullable: false),
-                    Nazwa = table.Column<string>(nullable: true),
+                    Nazwa = table.Column<string>(nullable: false),
                     Cena_netto = table.Column<decimal>(type: "decimal(6,2)", nullable: true),
                     VAT = table.Column<int>(nullable: false),
                     Cena_brutto = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     Opis = table.Column<string>(nullable: true),
-                    Id_obrazek = table.Column<string>(nullable: true)
+                    Obrazek = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

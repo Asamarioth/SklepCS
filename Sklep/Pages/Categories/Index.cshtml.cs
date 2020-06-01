@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace Sklep.Pages.Categories
 {
@@ -30,12 +31,11 @@ namespace Sklep.Pages.Categories
             CurrentCategory = currentCategory;
             PriceSort = sortOrder == "Price" ? "price_desc" : "Price";
             
-            CurrentFilter = searchString;
 
+            CurrentFilter = searchString;
             IQueryable<Produkty> produktyIQ = from p in _context.Produkty
                                               .Include(ka => ka.Kategorie)
-                                              select p;
-
+                                               select p;
             if (searchString != null)
             {
                 pageIndex = 1;

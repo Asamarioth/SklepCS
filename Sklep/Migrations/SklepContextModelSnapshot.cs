@@ -70,8 +70,7 @@ namespace Sklep.Migrations
 
                     b.Property<string>("Nazwa")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Obrazek")
                         .HasColumnType("nvarchar(max)");

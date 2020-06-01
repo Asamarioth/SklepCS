@@ -23,6 +23,6 @@ namespace Sklep.Data
             modelBuilder.Entity<Produkty>().ToTable("Produkty");
             modelBuilder.Entity<Kategorie>().ToTable("Kategorie");
             modelBuilder.Entity<Producenci>().ToTable("Producenci");
-        } 
+        }
     }
 }

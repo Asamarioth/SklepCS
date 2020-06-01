@@ -4,15 +4,93 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="container">
+<div class="container pt-2">
+        <nav class="navbar navbar-expand-lg navbar-dark primary-color mt-5 mb-5">
 
-    <div class="row pt-4">
+        <!-- Navbar brand -->
+        <a class="font-weight-bold white-text mr-4" href="#">Lorem Ipsum</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+                aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item dropdown mega-dropdown active">
+
+                    <a class="nav-link dropdown-toggle  no-caret" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Kategorie</a>
+
+                    <div class="dropdown-menu mega-menu v-2 row z-depth-1 white" aria-labelledby="navbarDropdownMenuLink1">
+
+                        <div class="row mx-md-4 mx-1">
+
+                            <div class="col-md-6 col-xl-3 sub-menu my-xl-5 mt-5 mb-4">
+
+
+                                <ul class="caret-style pl-0">
+                                    @foreach (var item in Model.Kategorie)
+                                    {
+                                        <li class="">
+                                            <a class="menu-item" asp-page ="./Categories/Index" asp-route-sortOrder="" asp-route-currentFilter="" asp-route-currentCategory="@item.ID">
+                                                @item.Nazwa
+                                            </a>
+                                        </li>
+                                    }
+
+                                </ul>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+
+
+
+            </ul>
+
+            <!-- Links -->
+            <!-- Search form -->
+            <form class="search-form" role="search" method="get" asp-page="./Categories/Index">
+
+                <div class="form-group md-form my-0 waves-light float-left">
+
+                    <input type="text" class="form-control" placeholder="Szukaj" id="searchString" name="searchString">
+                    
+                </div> 
+                <div class="form-group md-form my-0 waves-light float-right pt-2">
+
+                <button type="submit" class="">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </div>
+
+            </form>
+
+
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <div class="row ">
 
         <!-- Content -->
         <div class="col-lg-12">
 
             <!-- Products Grid -->
-            <section class="section my-5 pb-5">
+            <section class="section  pb-5">
 
                 <!-- Grid row -->
                 <div class="row">

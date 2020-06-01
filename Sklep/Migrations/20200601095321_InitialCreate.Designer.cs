@@ -10,8 +10,8 @@ using Sklep.Data;
 namespace Sklep.Migrations
 {
     [DbContext(typeof(SklepContext))]
-    [Migration("20200528092009_TableRestraints")]
-    partial class TableRestraints
+    [Migration("20200601095321_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,8 +72,7 @@ namespace Sklep.Migrations
 
                     b.Property<string>("Nazwa")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Obrazek")
                         .HasColumnType("nvarchar(max)");
